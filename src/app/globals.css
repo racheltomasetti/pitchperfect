@@ -72,3 +72,8 @@
     color-scheme: dark;
   }
 }
+
+/* Add this to the end of the file */
+body {
+  background: radial-gradient(circle, #1f2937, #111827);
+}
