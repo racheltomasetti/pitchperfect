@@ -52,9 +52,9 @@ function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides
           <div className="space-y-2">
             <h3 className="font-medium text-lg">How Pitch PerfectWorks</h3>
             <p>1. Enter a topic and number of slides.</p>
-            <p>2. Click 'Begin' to generate a set of random slides.</p>
-            <p>3. Present the slides without preparation.</p>
-            <p>4. Click or press space to move to the next slide.</p>
+            <p>2. Generate your deck.</p>
+            <p>3. Present the slides on the fly.</p>
+            <p>4. Click to move to the next slide.</p>
             <p>5. Improvise and have fun!</p>
           </div>
         </PopoverContent>
