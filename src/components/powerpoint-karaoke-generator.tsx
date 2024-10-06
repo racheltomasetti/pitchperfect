@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons"
 
 // Mock function to simulate slide deck generation
 const generateSlideDeck = (topic: string, numSlides: number) => {
@@ -28,14 +30,45 @@ function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides
   const [numSlides, setNumSlides] = useState(5)
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-white shadow-lg">
+  <div>
+      <div className="absolute top-0 left-1/4 w-1/2 h-40 bg-yellow-500 opacity-20 rounded-full blur-3xl"></div>
+      <div className="absolute top-20 left-10 w-40 h-40 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
+      <div className="absolute top-20 right-10 w-40 h-40 bg-red-500 opacity-20 rounded-full blur-3xl"></div>
+
+      <div className="w-full max-w-4xl mx-auto text-center mb-8 relative">
+        <div className="absolute inset-0 transform skew-y-3 -z-10"></div>
+        <h1 className="text-5xl font-bold text-white mb-2 relative z-10">Pitch Perfect</h1>
+        <p className="text-xl text-yellow-300 relative z-10">Take the stage and improvise!</p>
+      </div>
+    <Card className="w-full max-w-md mx-auto shadow-lg bg-gray-800/80 backdrop-blur-sm shadow-2xl border-gray-700">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button className="w-8 h-8 p-0 absolute top-2 right-2 bg-white/10">
+            <QuestionMarkCircledIcon className="h-4 w-4" />
+            <span className="sr-only">Help</span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80">
+          <div className="space-y-2">
+            <h3 className="font-medium text-lg">How Pitch PerfectWorks</h3>
+            <p>1. Enter a topic and number of slides.</p>
+            <p>2. Generate your deck.</p>
+            <p>3. Present the slides on the fly.</p>
+            <p>4. Click to move to the next slide.</p>
+            <p>5. Improvise and have fun!</p>
+          </div>
+        </PopoverContent>
+      </Popover>
+      
       <CardHeader>
-        <CardTitle className="text-gray-800">PowerPoint Karaoke Generator</CardTitle>
-        <CardDescription className="text-gray-600">Generate a random slide deck for PowerPoint Karaoke</CardDescription>
+        <div className="pr-10">
+        <CardTitle className="text-2xl font-bold text-white">Prepare Your Performance</CardTitle>
+            <CardDescription className="text-gray-300">Set the stage for your impromptu talk</CardDescription>
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="topic" className="text-gray-700">Topic</Label>
+          <Label htmlFor="topic" className="text-gray-200">Topic</Label>
           <Input
             id="topic"
             placeholder="Enter a topic"
@@ -45,7 +78,7 @@ function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="numSlides" className="text-gray-700">Number of Slides</Label>
+          <Label htmlFor="numSlides" className="text-gray-200">Number of Slides</Label>
           <Input
             id="numSlides"
             type="number"
@@ -58,11 +91,13 @@ function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={() => onGenerate(topic, numSlides)} className="w-full">
-          Generate Slide Deck
+        <Button onClick={() => onGenerate(topic, numSlides)}  className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 text-lg transition-colors duration-200"
+>
+          Are you ready?
         </Button>
       </CardFooter>
     </Card>
+    </div>
   )
 }
 
@@ -107,17 +142,18 @@ function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (durati
 
   return (
     <div 
-      className="flex flex-col items-center justify-center h-screen bg-gray-100 text-gray-800 p-8"
+      className="flex flex-col items-center justify-center min-h-screen text-gray-200 p-8"
       onClick={nextSlide}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
       aria-label="Next slide"
     >
-      <h1 className="text-4xl font-bold mb-4">{currentSlide.content}</h1>
+
+      <h1 className="text-4xl font-bold mb-4 text-white">{currentSlide.content}</h1>
       <p className="text-xl">{currentSlide.title}/{slides.length}</p>
       {imageUrl && <img src={imageUrl} alt={currentSlide.title} className="mt-4 max-w-full max-h-100 object-fill" />}
-      <p className="mt-8 text-gray-600">Click or press space to continue</p>
+      <p className="mt-8 text-gray-200">Click to continue</p>
     </div>
   )
 }
@@ -126,15 +162,15 @@ function AnalysisScreen({ duration, totalSlides, onRestart }: { duration: number
   const averageTimePerSlide = duration / totalSlides / 1000 // in seconds
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-white shadow-lg">
+    <Card className="w-full max-w-md mx-auto bg-gray-800/80 backdrop-blur-sm shadow-2xl border-gray-700">
       <CardHeader>
-        <CardTitle className="text-gray-800">Performance Analysis</CardTitle>
+        <CardTitle className="text-white">Performance Analysis</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4 text-gray-700">
+      <CardContent className="space-y-4 text-gray-200">
         <p>Total time: {(duration / 1000).toFixed(2)} seconds</p>
         <p>Total slides: {totalSlides}</p>
         <p>Average time per slide: {averageTimePerSlide.toFixed(2)} seconds</p>
-        <p className="text-gray-600 italic">
+        <p className="text-gray-200 italic">
           {averageTimePerSlide < 10
             ? "Wow, that was fast! Did you even look at the slides?"
             : averageTimePerSlide < 30
@@ -143,7 +179,7 @@ function AnalysisScreen({ duration, totalSlides, onRestart }: { duration: number
         </p>
       </CardContent>
       <CardFooter>
-        <Button onClick={onRestart} className="w-full">
+        <Button onClick={onRestart} className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 text-lg transition-colors duration-200">
           Start Over
         </Button>
       </CardFooter>
@@ -173,7 +209,7 @@ export default function PowerPointKaraokeGenerator() {
   }
 
   return (
-    <div className="h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="h-screen bg-transparent flex items-center justify-center p-4">
       {presentationMode === "generate" && (
         <GeneratorScreen onGenerate={handleGenerate} />
       )}
@@ -190,3 +226,5 @@ export default function PowerPointKaraokeGenerator() {
     </div>
   )
 }
+
+
