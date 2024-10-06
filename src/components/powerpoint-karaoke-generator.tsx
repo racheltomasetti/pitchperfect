@@ -59,7 +59,7 @@ function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={() => onGenerate(topic, numSlides)} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+        <Button onClick={() => onGenerate(topic, numSlides)} className="w-full">
           Generate Slide Deck
         </Button>
       </CardFooter>
@@ -124,7 +124,7 @@ function AnalysisScreen({ duration, totalSlides, onRestart }: { duration: number
         </p>
       </CardContent>
       <CardFooter>
-        <Button onClick={onRestart} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+        <Button onClick={onRestart} className="w-full">
           Start Over
         </Button>
       </CardFooter>
@@ -154,7 +154,7 @@ export default function PowerPointKaraokeGenerator() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="h-screen bg-gray-50 flex items-center justify-center p-4">
       {presentationMode === "generate" && (
         <GeneratorScreen onGenerate={handleGenerate} />
       )}
