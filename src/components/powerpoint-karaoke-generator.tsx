@@ -12,7 +12,7 @@ const generateSlideDeck = (topic: string, numSlides: number) => {
   return Array.from({ length: numSlides }, (_, i) => ({
     id: i,
     title: `Slide ${i + 1}`,
-    content: `Random content about ${topic}`
+    content: `${topic}`
   }))
 }
 
@@ -114,8 +114,8 @@ function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (durati
       role="button"
       aria-label="Next slide"
     >
-      <h1 className="text-4xl font-bold mb-4">{currentSlide.title}</h1>
-      <p className="text-xl">{currentSlide.content}</p>
+      <h1 className="text-4xl font-bold mb-4">{currentSlide.content}</h1>
+      <p className="text-xl">{currentSlide.title}/{slides.length}</p>
       {imageUrl && <img src={imageUrl} alt={currentSlide.title} className="mt-4 max-w-full max-h-120 object-cover" />}
       <p className="mt-8 text-gray-600">Click or press space to continue</p>
     </div>
