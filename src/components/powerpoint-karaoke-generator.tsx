@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -8,20 +9,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 // Mock function to simulate slide deck generation
 const generateSlideDeck = (topic: string, numSlides: number) => {
-  return [
-    { id: 0, title: topic, content: "Title Slide" },
-    ...Array.from({ length: numSlides }, (_, i) => ({
-      id: i + 1,
-      title: `Slide ${i + 1}`,
-      content: `Random content about ${topic}`
-    }))
-  ]
+  return Array.from({ length: numSlides }, (_, i) => ({
+    id: i,
+    title: `Slide ${i + 1}`,
+    content: `Random content about ${topic}`
+  }))
 }
 
 type Slide = {
   id: number
   title: string
   content: string
+  imageUrl?: string
 }
 
 function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides: number) => void }) {
@@ -70,6 +69,25 @@ function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides
 function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (duration: number) => void }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
   const [startTime] = useState(Date.now())
+  const [imageUrl, setImageUrl] = useState("")
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await axios.get(`https://api.unsplash.com/photos/random`, {
+          params: { query: slides[currentSlideIndex].title },
+          headers: {
+            Authorization: `Client-ID GcSje_mNiuoVfOVKjG4EsiSLNtgqsqtvtKLIPbZmzb8`
+          }
+        })
+        setImageUrl(response.data.urls.regular)
+      } catch (error) {
+        console.error("Error fetching image from Unsplash:", error)
+      }
+    }
+
+    fetchImage()
+  }, [currentSlideIndex, slides])
 
   const nextSlide = () => {
     if (currentSlideIndex < slides.length - 1) {
@@ -98,6 +116,7 @@ function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (durati
     >
       <h1 className="text-4xl font-bold mb-4">{currentSlide.title}</h1>
       <p className="text-xl">{currentSlide.content}</p>
+      {imageUrl && <img src={imageUrl} alt={currentSlide.title} className="mt-4 max-w-full max-h-96 object-cover" />}
       <p className="mt-8 text-gray-600">Click or press space to continue</p>
     </div>
   )
