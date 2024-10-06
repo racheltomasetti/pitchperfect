@@ -74,7 +74,7 @@ function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (durati
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get(`https://api.unsplash.com/photos/random?orientation=landscape&w=1080&h=720`, {
+        const response = await axios.get(`https://api.unsplash.com/photos/random?orientation=landscape`, {
           params: { query: slides[currentSlideIndex].title },
           headers: {
             Authorization: `Client-ID GcSje_mNiuoVfOVKjG4EsiSLNtgqsqtvtKLIPbZmzb8`
@@ -116,7 +116,7 @@ function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (durati
     >
       <h1 className="text-4xl font-bold mb-4">{currentSlide.content}</h1>
       <p className="text-xl">{currentSlide.title}/{slides.length}</p>
-      {imageUrl && <img src={imageUrl} alt={currentSlide.title} className="mt-4 max-w-full max-h-120 object-cover" />}
+      {imageUrl && <img src={imageUrl} alt={currentSlide.title} className="mt-4 max-w-full max-h-100 object-fill" />}
       <p className="mt-8 text-gray-600">Click or press space to continue</p>
     </div>
   )
