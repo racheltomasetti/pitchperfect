@@ -1,4 +1,3 @@
-import Image from "next/image";
 import PowerpointKaraokeGenerator from "@/components/powerpoint-karaoke-generator";
 
 export default function Home() {

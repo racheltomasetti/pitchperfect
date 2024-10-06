@@ -31,12 +31,10 @@ function GeneratorScreen({ onGenerate }: { onGenerate: (topic: string, numSlides
 
   return (
   <div>
-      {/* Stage lights */}
       <div className="absolute top-0 left-1/4 w-1/2 h-40 bg-yellow-500 opacity-20 rounded-full blur-3xl"></div>
       <div className="absolute top-20 left-10 w-40 h-40 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
       <div className="absolute top-20 right-10 w-40 h-40 bg-red-500 opacity-20 rounded-full blur-3xl"></div>
 
-      {/* Stage */}
       <div className="w-full max-w-4xl mx-auto text-center mb-8 relative">
         <div className="absolute inset-0 transform skew-y-3 -z-10"></div>
         <h1 className="text-5xl font-bold text-white mb-2 relative z-10">Pitch Perfect</h1>
