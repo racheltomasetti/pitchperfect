@@ -1,3 +1,4 @@
+
 import PowerpointKaraokeGenerator from "@/components/powerpoint-karaoke-generator";
 
 export default function Home() {

@@ -14,7 +14,7 @@ const generateSlideDeck = (topic: string, numSlides: number) => {
   return Array.from({ length: numSlides }, (_, i) => ({
     id: i,
     title: `Slide ${i + 1}`,
-    content: `Random content about ${topic}`
+    content: `${topic}`
   }))
 }
 
@@ -109,7 +109,7 @@ function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (durati
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get(`https://api.unsplash.com/photos/random`, {
+        const response = await axios.get(`https://api.unsplash.com/photos/random?orientation=landscape`, {
           params: { query: slides[currentSlideIndex].title },
           headers: {
             Authorization: `Client-ID GcSje_mNiuoVfOVKjG4EsiSLNtgqsqtvtKLIPbZmzb8`
@@ -149,9 +149,10 @@ function PresentationScreen({ slides, onEnd }: { slides: Slide[], onEnd: (durati
       role="button"
       aria-label="Next slide"
     >
-      <h1 className="text-4xl font-bold mb-4 text-white">{currentSlide.title}</h1>
-      <p className="text-xl">{currentSlide.content}</p>
-      {imageUrl && <img src={imageUrl} alt={currentSlide.title} className="mt-4 max-w-full max-h-96 object-cover" />}
+
+      <h1 className="text-4xl font-bold mb-4 text-white">{currentSlide.content}</h1>
+      <p className="text-xl">{currentSlide.title}/{slides.length}</p>
+      {imageUrl && <img src={imageUrl} alt={currentSlide.title} className="mt-4 max-w-full max-h-100 object-fill" />}
       <p className="mt-8 text-gray-200">Click to continue</p>
     </div>
   )
